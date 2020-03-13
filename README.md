@@ -1,4 +1,10 @@
  # xfinity-refresh
+ xfinity hotspots offer a complimentary 1-hour complimentary pass, restricted to one per device and per month.
+ This tool automates the process of getting a pass and activating it every hour:
+ - changing the MAC address
+ - going to the captive portal page
+ - creating an account
+ - activating the pass
  
  ## Installation
  
