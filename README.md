@@ -11,9 +11,14 @@
  ## Usage
  
  ```
- python -m xfinity_refresh <wifi_interface>
+xfinity-refresh <wifi_interface>
  ```
  Example:
  ```
- python -m xfinity_refresh wlan0
+xfinity-refresh wlan0
  ```
+
+> ✔ Device wlan0 disconnected  
+> ✔ Changed MAC address to 02:0C:29:10:F8:4E  
+> ✔ Device wlan0 connected  
+> ✔ Pass activated on Fri Mar 13 14:30:29 2020
