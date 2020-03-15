@@ -1,6 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from halo import Halo
 import time
 import os, pwd, grp
@@ -12,47 +16,49 @@ def activate_pass():
 
     options = FirefoxOptions()
     options.add_argument("--headless")
-    browser = webdriver.Firefox(options=options)
-    browser.implicitly_wait(40) # seconds
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference('permissions.default.stylesheet', 2)
+    profile.set_preference('permissions.default.image', 2)
+    caps = DesiredCapabilities().FIREFOX
+    caps['pageLoadStrategy'] = 'eager'
+    browser = webdriver.Firefox(profile, options=options, desired_capabilities=caps)
+    wait = WebDriverWait(browser, 45)
 
     with Halo(text='Going to the capture page', spinner='dots'):
         # 1. capture page
         browser.get('http://detectportal.firefox.com/success.txt')
         # green button
-        url = browser.find_element_by_id('banner_green_text').get_attribute('href')
+        element = wait.until(EC.presence_of_element_located((By.ID, 'banner_green_text')))
+        url = element.get_attribute('href')
 
     with Halo(text='Choosing the free offer', spinner='dots'):
         # 2. choose free offer
         browser.get(url)
-        browser.find_element_by_id('offersFreeList1').click()
-        browser.find_element_by_id('continueButton').click()
-        browser.find_element_by_id('upgradeOfferCancelButton').click()
-
-        time.sleep(3)
+        wait.until(EC.element_to_be_clickable((By.ID, 'offersFreeList1'))).click()
+        wait.until(EC.element_to_be_clickable((By.ID, 'continueButton'))).click()
+        wait.until(EC.element_to_be_clickable((By.ID, 'upgradeOfferCancelButton'))).click()
 
     with Halo('Creating an account'):
         # 3. create account
-        browser.find_element_by_id('firstName').send_keys('John')
-        browser.find_element_by_id('lastName').send_keys('McCain')
-        browser.find_element_by_id('userName').send_keys('McCain'+str(time.time()))
-        browser.find_element_by_id('alternateEmail').send_keys(str(time.time())+'@gmail.com')
-        browser.find_element_by_id('dk0-secretQuestion').click()
-        time.sleep(1)
-        browser.find_element_by_id('dk0-What-is your favorite movie?').click()
-        browser.find_element_by_id('secretAnswer').send_keys('McCain')
-        browser.find_element_by_id('password').send_keys('aqzsedfrde4512')
-        browser.find_element_by_id('passwordRetype').send_keys('aqzsedfrde4512')
-        browser.find_element_by_id('submitButton').click()
+        wait.until(EC.element_to_be_clickable((By.ID, 'submitButton')))
+        wait.until(EC.element_to_be_clickable((By.ID, 'firstName'))).send_keys('John')
+        wait.until(EC.element_to_be_clickable((By.ID, 'lastName'))).send_keys('McCain')
+        wait.until(EC.element_to_be_clickable((By.ID, 'userName'))).send_keys('McCain'+str(time.time()))
+        wait.until(EC.element_to_be_clickable((By.ID, 'alternateEmail'))).send_keys(str(time.time())+'@gmail.com')
+        wait.until(EC.element_to_be_clickable((By.ID, 'dk0-secretQuestion'))).click()
+        wait.until(EC.element_to_be_clickable((By.ID, 'dk0-What-is your favorite movie?'))).click()
+        wait.until(EC.element_to_be_clickable((By.ID, 'secretAnswer'))).send_keys('McCain')
+        wait.until(EC.element_to_be_clickable((By.ID, 'password'))).send_keys('aqzsedfrde4512')
+        wait.until(EC.element_to_be_clickable((By.ID, 'passwordRetype'))).send_keys('aqzsedfrde4512')
+        wait.until(EC.element_to_be_clickable((By.ID, 'submitButton'))).click()
 
     with Halo('Activating pass') as s:
         # 4. activate pass
         try:
-            time.sleep(5)
-            browser.find_element_by_id('_orderConfirmationActivatePass').click()
+            wait.until(EC.element_to_be_clickable((By.ID, '_orderConfirmationActivatePass'))).click()
         except:
             browser.refresh()
-            time.sleep(5)
-            browser.find_element_by_id('_orderConfirmationActivatePass').click()
+            wait.until(EC.element_to_be_clickable((By.ID, '_orderConfirmationActivatePass'))).click()
 
         s.succeed(f'Pass activated on {time.ctime()}')
 
