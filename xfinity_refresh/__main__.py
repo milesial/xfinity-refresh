@@ -4,6 +4,8 @@ from argparse import ArgumentParser
 from xfinity_refresh.activate_pass import activate_pass
 from xfinity_refresh.change_mac import change_mac
 from halo import Halo
+from select import select
+import sys
 import time
 
 
@@ -24,7 +26,17 @@ def main():
         else:
             with Halo(spinner='clock') as s:
                 for i in reversed(range(60*59)):
-                    s.text = f'Waiting {int(i/60)}m {i%60}s until next pass...'
+                    s.text = f'Waiting {int(i/60)}m {i%60}s until next pass... [q]uit | [r]efresh'
+                    rlist, _, _ = select([sys.stdin], [], [], 0)
+                    if rlist:
+                        key = sys.stdin.readline()[0]
+                        if key == 'q':
+                            return
+                        elif key == 'r':
+                            break
+                        else:
+                            s.text = f'Command not recognized: {key}'
+
                     time.sleep(1)
 
 
