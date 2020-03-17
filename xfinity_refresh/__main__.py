@@ -17,10 +17,14 @@ def main():
 
     while True:
         elevate(graphical=False)
-        change_mac(args.iface)
-        p = Process(target=activate_pass)
-        p.start()
-        p.join()
+        exitcode = 1
+        while exitcode:
+            change_mac(args.iface)
+            p = Process(target=activate_pass)
+            p.start()
+            p.join()
+            exitcode = p.exitcode
+
         if args.once:
             break
         else:
