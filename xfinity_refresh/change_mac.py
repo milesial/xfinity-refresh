@@ -1,13 +1,14 @@
 from argparse import ArgumentParser
 from spoofmac import random_mac_address, set_interface_mac
 import subprocess
+from subprocess import PIPE
 import os
 from halo import Halo
 
 
 def change_mac(interface: str):
     with Halo(text='Disconnecting interface') as s:
-        res = subprocess.run(['sudo', 'nmcli', 'd', 'disconnect', interface], capture_output=True)
+        res = subprocess.run(['sudo', 'nmcli', 'd', 'disconnect', interface], stdout=PIPE, stderr=PIPE)
         if res.returncode:
             if 'This device is not active' in res.stderr.decode('ascii'):
                 s.succeed('Device {} already stopped'.format(interface))
@@ -22,7 +23,7 @@ def change_mac(interface: str):
         s.succeed('Changed MAC address to {}'.format(mac))
 
     with Halo(text='Connecting interface') as s:
-        res = subprocess.run(['sudo', 'nmcli', 'd', 'connect', interface], capture_output=True)
+        res = subprocess.run(['sudo', 'nmcli', 'd', 'connect', interface], stdout=PIPE, stderr=PIPE)
         if res.returncode:
             s.warn(res.stderr.decode('ascii'))
         else:
