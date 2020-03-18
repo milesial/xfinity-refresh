@@ -30,7 +30,7 @@ def main():
         else:
             with Halo(spinner='clock') as s:
                 for i in reversed(range(60*59)):
-                    s.text = f'Waiting {int(i/60)}m {i%60}s until next pass... [q]uit | [r]efresh'
+                    s.text = 'Waiting {}m {}s until next pass... [q]uit | [r]efresh'.format(int(i/60), i%60)
                     rlist, _, _ = select([sys.stdin], [], [], 0)
                     if rlist:
                         key = sys.stdin.readline()[0]
@@ -39,7 +39,7 @@ def main():
                         elif key == 'r':
                             break
                         else:
-                            s.text = f'Command not recognized: {key}'
+                            s.text = 'Command not recognized: {}'.format(key)
 
                     time.sleep(1)
 

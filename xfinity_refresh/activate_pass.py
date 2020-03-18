@@ -78,7 +78,7 @@ def activate_pass():
             s.fail(e.msg)
             raise e
 
-        s.succeed(f'Pass activated on {time.ctime()}')
+        s.succeed('Pass activated on {}'.format(time.ctime()))
 
 
 if __name__ == '__main__':

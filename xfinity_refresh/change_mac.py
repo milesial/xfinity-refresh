@@ -10,23 +10,23 @@ def change_mac(interface: str):
         res = subprocess.run(['sudo', 'nmcli', 'd', 'disconnect', interface], capture_output=True)
         if res.returncode:
             if 'This device is not active' in res.stderr.decode('ascii'):
-                s.succeed(f'Device {interface} already stopped')
+                s.succeed('Device {} already stopped'.format(interface))
             else:
                 s.fail(res.stderr.decode('ascii'))
         else:
-            s.succeed(f'Device {interface} disconnected')
+            s.succeed('Device {} disconnected'.format(interface))
 
     with Halo(text='Changing MAC address') as s:
         mac = random_mac_address()
         set_interface_mac(interface, mac)
-        s.succeed(f'Changed MAC address to {mac}')
+        s.succeed('Changed MAC address to {}'.format(mac))
 
     with Halo(text='Connecting interface') as s:
         res = subprocess.run(['sudo', 'nmcli', 'd', 'connect', interface], capture_output=True)
         if res.returncode:
             s.warn(res.stderr.decode('ascii'))
         else:
-            s.succeed(f'Device {interface} connected')
+            s.succeed('Device {} connected'.format(interface))
 
 
 if __name__ == '__main__':
