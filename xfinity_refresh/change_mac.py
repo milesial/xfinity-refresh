@@ -8,12 +8,9 @@ from halo import Halo
 
 def change_mac(interface: str):
     with Halo(text='Disconnecting interface') as s:
-        res = subprocess.run(['sudo', 'nmcli', 'd', 'disconnect', interface], stdout=PIPE, stderr=PIPE)
+        res = subprocess.run(['sudo', 'ifconfig', interface, 'down'], stdout=PIPE, stderr=PIPE)
         if res.returncode:
-            if 'This device is not active' in res.stderr.decode('ascii'):
-                s.succeed('Device {} already stopped'.format(interface))
-            else:
-                s.fail(res.stderr.decode('ascii'))
+            s.fail(res.stderr.decode('ascii'))
         else:
             s.succeed('Device {} disconnected'.format(interface))
 
@@ -23,7 +20,7 @@ def change_mac(interface: str):
         s.succeed('Changed MAC address to {}'.format(mac))
 
     with Halo(text='Connecting interface') as s:
-        res = subprocess.run(['sudo', 'nmcli', 'd', 'connect', interface], stdout=PIPE, stderr=PIPE)
+        res = subprocess.run(['sudo', 'ifconfig', interface, 'up'], stdout=PIPE, stderr=PIPE)
         if res.returncode:
             s.warn(res.stderr.decode('ascii'))
         else:
