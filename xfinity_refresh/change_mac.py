@@ -26,6 +26,8 @@ def change_mac(interface: str):
         else:
             s.succeed('Device {} connected'.format(interface))
 
+    return mac
+
 
 if __name__ == '__main__':
     parser = ArgumentParser()

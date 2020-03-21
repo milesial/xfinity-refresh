@@ -19,7 +19,8 @@ setup(name='xfinity_refresh',
       install_requires=install_requires,
       entry_points={
           'console_scripts': [
-              'xfinity-refresh = xfinity_refresh.__main__:main'
+              'xfinity-refresh = xfinity_refresh.__main__:main',
+              'xfinity-refresh-server = xfinity_refresh.__main__:server',
           ]
       },
      )

@@ -1,8 +1,7 @@
 from multiprocessing import Process
 from elevate import elevate
 from argparse import ArgumentParser
-from xfinity_refresh.activate_pass import activate_pass
-from xfinity_refresh.change_mac import change_mac
+from xfinity_refresh import change_activate
 from halo import Halo
 from select import select
 import sys
@@ -15,15 +14,9 @@ def main():
     parser.add_argument('--once', dest='once', action='store_true')
     args = parser.parse_args()
 
+    elevate(graphical=False)
     while True:
-        elevate(graphical=False)
-        exitcode = 1
-        while exitcode:
-            change_mac(args.iface)
-            p = Process(target=activate_pass)
-            p.start()
-            p.join()
-            exitcode = p.exitcode
+        change_activate(args.iface)
 
         if args.once:
             break
