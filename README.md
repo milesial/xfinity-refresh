@@ -3,14 +3,14 @@
 :warning: This program is for demonstration and educational purposes only. I do not advocate the abuse of the complimentary pass from xfinity. Use this tool at your own risk. :warning:
 
 xfinity hotspots offer a complimentary 1-hour complimentary pass, restricted to one per device and per month.
-This tool automates the process of getting a pass and activating it every hour (headless firefox):
+This tool automates the process of getting a pass and activating it every hour (headless browser):
 - changing the MAC address
 - going to the captive portal page
 - creating an account
 - activating the pass
 
 ## Installation
-First, download and install Firefox and [geckodriver](https://github.com/mozilla/geckodriver/releases).
+First, download and install Chrome and [chromedriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver). For debian: `sudo apt install chromium-chromedriver`
 
 Then:
 ```
