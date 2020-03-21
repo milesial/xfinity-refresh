@@ -21,8 +21,8 @@ setup(name='xfinity_refresh',
       entry_points={
           'console_scripts': [
               'xfinity-refresh = xfinity_refresh.__main__:main',
-              'xfinity-refresh-server = xfinity_refresh.__main__:server',
-              'xfinity-refresh-client = xfinity_refresh.__main__:client'
+              'xfinity-refresh-server = xfinity_refresh.server:server',
+              'xfinity-refresh-client = xfinity_refresh.client:client'
           ]
       },
       )

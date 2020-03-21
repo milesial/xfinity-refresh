@@ -1,5 +1,6 @@
 import socketserver
 import subprocess
+from subprocess import PIPE
 import time
 from argparse import ArgumentParser
 from multiprocessing import Process, Queue
@@ -20,7 +21,7 @@ def background_loop(interface, queue):
         queue.put({'mac': mac, 'time': time.time()})
         with Halo(spinner='clock') as s:
             for i in reversed(range(6 * 50)):
-                s.text = 'Waiting {}m {}s until next pass...'.format(int(i / 60), i % 60)
+                s.text = 'Waiting {}m {}s until next pass...'.format(int(i / 6), (i * 10) % 60)
                 time.sleep(10)
 
 
