@@ -1,4 +1,6 @@
+import socket
 from argparse import ArgumentParser
+
 from elevate import elevate
 from spoofmac import set_interface_mac
 

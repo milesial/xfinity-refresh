@@ -1,15 +1,13 @@
+import os
+import time
+
+from halo import Halo
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.common.exceptions import WebDriverException
-from halo import Halo
-import time
-import os, pwd, grp
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 def activate_pass():
@@ -50,8 +48,8 @@ def activate_pass():
             wait.until(EC.element_to_be_clickable((By.ID, 'submitButton')))
             wait.until(EC.element_to_be_clickable((By.ID, 'firstName'))).send_keys('John')
             wait.until(EC.element_to_be_clickable((By.ID, 'lastName'))).send_keys('McCain')
-            wait.until(EC.element_to_be_clickable((By.ID, 'userName'))).send_keys('McCain'+str(time.time()))
-            wait.until(EC.element_to_be_clickable((By.ID, 'alternateEmail'))).send_keys(str(time.time())+'@gmail.com')
+            wait.until(EC.element_to_be_clickable((By.ID, 'userName'))).send_keys('McCain' + str(time.time()))
+            wait.until(EC.element_to_be_clickable((By.ID, 'alternateEmail'))).send_keys(str(time.time()) + '@gmail.com')
             wait.until(EC.element_to_be_clickable((By.ID, 'dk0-secretQuestion'))).click()
             wait.until(EC.element_to_be_clickable((By.ID, 'dk0-What-is your favorite movie?'))).click()
             wait.until(EC.element_to_be_clickable((By.ID, 'secretAnswer'))).send_keys('McCain')

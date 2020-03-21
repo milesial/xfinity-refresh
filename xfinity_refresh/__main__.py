@@ -1,11 +1,12 @@
-from multiprocessing import Process
-from elevate import elevate
-from argparse import ArgumentParser
-from xfinity_refresh import change_activate
-from halo import Halo
-from select import select
 import sys
 import time
+from argparse import ArgumentParser
+from select import select
+
+from elevate import elevate
+from halo import Halo
+
+from xfinity_refresh import change_activate
 
 
 def main():
@@ -22,8 +23,8 @@ def main():
             break
         else:
             with Halo(spinner='clock') as s:
-                for i in reversed(range(60*59)):
-                    s.text = 'Waiting {}m {}s until next pass... [q]uit | [r]efresh'.format(int(i/60), i%60)
+                for i in reversed(range(60 * 59)):
+                    s.text = 'Waiting {}m {}s until next pass... [q]uit | [r]efresh'.format(int(i / 60), i % 60)
                     rlist, _, _ = select([sys.stdin], [], [], 0)
                     if rlist:
                         key = sys.stdin.readline()[0]

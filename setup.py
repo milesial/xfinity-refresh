@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-from setuptools import setup
 import os
+
+from setuptools import setup
 
 # parse dependencies from requirements.txt
 folder = os.path.dirname(os.path.realpath(__file__))
@@ -24,4 +25,4 @@ setup(name='xfinity_refresh',
               'xfinity-refresh-client = xfinity_refresh.__main__:client'
           ]
       },
-     )
+      )

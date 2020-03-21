@@ -1,9 +1,9 @@
-from argparse import ArgumentParser
-from spoofmac import random_mac_address, set_interface_mac
 import subprocess
+from argparse import ArgumentParser
 from subprocess import PIPE
-import os
+
 from halo import Halo
+from spoofmac import random_mac_address, set_interface_mac
 
 
 def change_mac(interface: str):

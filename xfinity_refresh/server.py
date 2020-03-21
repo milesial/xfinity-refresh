@@ -2,11 +2,13 @@ import socketserver
 import subprocess
 import time
 from argparse import ArgumentParser
-from halo import Halo
-from xfinity_refresh import change_activate
-from elevate import elevate
 from multiprocessing import Process, Queue
 from queue import Empty
+
+from elevate import elevate
+from halo import Halo
+
+from xfinity_refresh import change_activate
 
 
 # get a pass and put MAC in queue every 50 mins
@@ -17,8 +19,8 @@ def background_loop(interface, queue):
         subprocess.run(['sudo', 'ifconfig', interface, 'down'], stdout=PIPE, stderr=PIPE)
         queue.put({'mac': mac, 'time': time.time()})
         with Halo(spinner='clock') as s:
-            for i in reversed(range(6*50)):
-                s.text = 'Waiting {}m {}s until next pass...'.format(int(i/60), i%60)
+            for i in reversed(range(6 * 50)):
+                s.text = 'Waiting {}m {}s until next pass...'.format(int(i / 60), i % 60)
                 time.sleep(10)
 
 
