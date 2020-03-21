@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,20 +16,16 @@ def activate_pass():
     if os.getuid() == 0:
         os.setuid(1000)
 
-    options = FirefoxOptions()
-    options.add_argument("--headless")
-    profile = webdriver.FirefoxProfile()
-    profile.set_preference('permissions.default.stylesheet', 2)
-    profile.set_preference('permissions.default.image', 2)
-    caps = DesiredCapabilities().FIREFOX
-    caps['pageLoadStrategy'] = 'eager'
-    browser = webdriver.Firefox(profile, options=options, desired_capabilities=caps)
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    browser = webdriver.Chrome(options=chrome_options, executable_path='/usr/bin/chromedriver',
+                               service_args=["--verbose", "--log-path=/tmp/chrome.log"])
     wait = WebDriverWait(browser, 30)
 
     with Halo(text='Going to the capture page', spinner='dots') as s:
         try:
             # 1. capture page
-            browser.get('http://detectportal.firefox.com/success.txt')
+            browser.get('http://gstatic.com/generate_204')
             # green button
             element = wait.until(EC.presence_of_element_located((By.ID, 'banner_green_text')))
             url = element.get_attribute('href')
