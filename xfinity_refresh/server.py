@@ -1,11 +1,14 @@
 import socketserver
 import subprocess
+import sys
 import threading
 import time
 from argparse import ArgumentParser
 from multiprocessing import Process, Queue
+from select import select
 from subprocess import PIPE
 
+import pyqrcode
 from elevate import elevate
 from halo import Halo
 
@@ -85,6 +88,23 @@ def server():
             with mutex:
                 PASSES.append(q.get())
 
+            print('Show and consume a pass: [t]ext | QR [c]ode')
+
+        rlist, _, _ = select([sys.stdin], [], [], 0)
+        if rlist:
+            key = sys.stdin.readline()[0]
+            if key == 't':
+                with mutex:
+                    p = PASSES.pop()
+                print('Here is a pass: {} ({}) mins left'.format(p['mac'], int((p['time'] - time.time()) / 60)))
+            elif key == 'c':
+                with mutex:
+                    p = PASSES.pop()
+                text = pyqrcode.create(p['mac'])
+                print('Here is a pass: ({}) mins left'.format(int((p['time'] - time.time()) / 60)))
+                print(text.terminal(quiet_zone=1))
+            else:
+                print('Command not recognized: {}'.format(key))
         time.sleep(5)
 
 
