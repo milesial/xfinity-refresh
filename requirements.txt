@@ -2,3 +2,4 @@ selenium
 halo
 spoofmac
 elevate
+pyqrcode
