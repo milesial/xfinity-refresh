@@ -17,6 +17,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+//        WifiConnectFragment wifiFragment = new WifiConnectFragment();
+//        fragmentTransaction.add(R.id.linearLayout, wifiFragment);
+        CodeScannerFragment camFragment = new CodeScannerFragment();
+        fragmentTransaction.add(R.id.linearLayout, camFragment);
+        ChangeMacFragment f = new ChangeMacFragment();
+        fragmentTransaction.add(R.id.linearLayout, f);
+        fragmentTransaction.commit();
+
 
     }
 
