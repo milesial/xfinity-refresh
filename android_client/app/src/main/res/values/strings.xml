@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Xfinity Refresh</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="connect_btn_text">Connect to Xfinity</string>
+    <string name="wifi_down_main">Wi-Fi disabled</string>
+    <string name="wifi_down_sub">Tap to enable</string>
+    <string name="wait_hotspot_main">Waiting hotspot</string>
+    <string name="wait_hotspot_sub">No xfinity AP detected</string>
+    <string name="found_hotspot_main">Found xfinitywifi</string>
+    <string name="found_hotspot_sub">Signal level: %d%%</string>
+
+    <string name="change_mac">Use pass %s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pass_detected">Detected xfinity pass\n%s</string>
+    <string name="wrong_qr">Please scan the QR code provided by the server</string>
+
+
+</resources>
