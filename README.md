@@ -59,6 +59,13 @@ xfinity-refresh-client wlan0 --host <ip_of_server>
 
 You can specify a specific port with `--port`
 
+### Android client
+
+<center><img src="https://i.imgur.com/XfyqCgA.jpg" height="700px" /></center>
+
+You can find the APK in the [release section](https://github.com/milesial/xfinity-refresh/releases).
+
+
 ## Will I ever run out of hardware addresses?
 
 no. You have a 0.47% chance of having a collision during a given month if you let this tool run 24/7.
