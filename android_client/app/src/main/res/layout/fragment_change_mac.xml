@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.main.ChangeMacFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,17 +17,26 @@
             style="@android:style/Widget.Material.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/customGreen"
+            android:backgroundTint="@color/colorPrimary"
+            android:enabled="false"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:text="@string/change_mac"
+            android:text="@string/change_mac_empty"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/changeMacText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/changeMacText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
 </FrameLayout>

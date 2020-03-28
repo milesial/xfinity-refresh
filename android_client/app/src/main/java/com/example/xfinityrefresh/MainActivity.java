@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-//        WifiConnectFragment wifiFragment = new WifiConnectFragment();
-//        fragmentTransaction.add(R.id.linearLayout, wifiFragment);
+        WifiConnectFragment wifiFragment = new WifiConnectFragment();
+        fragmentTransaction.add(R.id.linearLayout, wifiFragment);
         CodeScannerFragment camFragment = new CodeScannerFragment();
         fragmentTransaction.add(R.id.linearLayout, camFragment);
         ChangeMacFragment f = new ChangeMacFragment();

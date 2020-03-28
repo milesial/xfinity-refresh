@@ -11,6 +11,7 @@
     <string name="found_hotspot_sub">Signal level: %d%%</string>
 
     <string name="change_mac">Use pass %s</string>
+    <string name="change_mac_empty">Please scan the pass QR code</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

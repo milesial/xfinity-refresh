@@ -132,11 +132,9 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
 
                 if (wifiManager.isWifiEnabled()) {
                     WifiInfo connectionInfo = wifiManager.getConnectionInfo();
-                    Log.d("WIFI", connectionInfo.getSSID());
-                    if (connectionInfo != null && connectionInfo.getSSID().equals("\"xfinitiwifi\""))
-                    {
+                    if (connectionInfo != null && connectionInfo.getSSID().equals("\"xfinitiwifi\"")) {
                         Log.d("WIFI", "connected");
-                    } else{
+                    } else {
                         wifiManager.startScan();
                         setState(State.SCANNING);
                     }
@@ -157,7 +155,6 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
                 Context appContext = getActivity().getApplicationContext();
                 WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                 WifiInfo connectionInfo = wifiManager.getConnectionInfo();
-                Log.d("SUPPLICANT", ""+connectionInfo.getSupplicantState());
 
             }
         };
@@ -172,7 +169,7 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
         Drawable icon;
         switch (state) {
             case WIFI_DISABLED:
-                progressBar.setIndeterminate(false);
+                progressBar.setVisibility(View.INVISIBLE);
                 topCard.setClickable(true);
                 int c = ContextCompat.getColor(getContext(), R.color.customGreyLight);
                 topCard.setBackgroundColor(c);
@@ -184,7 +181,7 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
                 subText.setText(R.string.wifi_down_sub);
                 break;
             case SCANNING:
-                progressBar.setIndeterminate(true);
+                progressBar.setVisibility(View.VISIBLE);
                 topCard.setClickable(false);
                 icon = getResources().getDrawable(R.drawable.wifi_0);
                 icon.setColorFilter(ContextCompat.getColor(getContext(), R.color.customGrey), PorterDuff.Mode.SRC_ATOP);
@@ -195,7 +192,7 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
                 subText.setText(R.string.wait_hotspot_sub);
                 break;
             case FOUND:
-                progressBar.setIndeterminate(false);
+                progressBar.setVisibility(View.INVISIBLE);
                 int signal5 = WifiManager.calculateSignalLevel(xfinitywifi.level, 5);
                 int signal100 = WifiManager.calculateSignalLevel(xfinitywifi.level, 100);
                 icon = getResources().getDrawable(WIFI_ICONS[signal5 + 1]);
@@ -204,7 +201,7 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
                 mainText.setText(R.string.found_hotspot_main);
                 mainText.setTextColor(ContextCompat.getColor(getContext(), R.color.customGreen));
                 subText.setText(String.format(getResources().getString(R.string.found_hotspot_sub), signal100));
-                connectToNetwork();
+                //connectToNetwork();
         }
     }
 
@@ -237,7 +234,7 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        
+
         WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         new WifiOnTask(getView()).execute(wifiManager);
     }
@@ -264,7 +261,7 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
     private void connectToNetwork() {
         WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo connectionInfo = wifiManager.getConnectionInfo();
-        if(connectionInfo.getSSID().equals("xfinitywifi")) {
+        if (connectionInfo.getSSID().equals("xfinitywifi")) {
             return;
         }
 
@@ -309,7 +306,8 @@ public class WifiConnectFragment extends Fragment implements View.OnClickListene
 
         protected void onPostExecute(Boolean result) {
             if (view != null) {
-                ((ProgressBar) view.get().findViewById(R.id.progressBar)).setIndeterminate(false);
+                ((ProgressBar) view.get().findViewById(R.id.progressBar)).setVisibility(View.INVISIBLE);
+
                 if (!result) {
                     Snackbar.make(view.get(), "Please enable Wi-Fi", Snackbar.LENGTH_LONG).show();
                 } else {

@@ -86,7 +86,6 @@ public class CodeScannerFragment extends Fragment {
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                Log.d("EEE", "" + width + "" + height);
             }
 
             @Override
@@ -114,11 +113,9 @@ public class CodeScannerFragment extends Fragment {
                                 textView.setText(String.format(getString(R.string.pass_detected), value));
                                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.customGreen));
                                 vModel.getMac().setValue(value);
-                                Log.d("set0", "set");
                             } else {
                                 textView.setText(R.string.wrong_qr);
                                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.customRed));
-
                             }
                         } else {
                             textView.setText("");
