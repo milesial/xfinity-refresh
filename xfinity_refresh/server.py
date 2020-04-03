@@ -96,12 +96,12 @@ def server():
             if key == 't':
                 with mutex:
                     p = PASSES.pop()
-                print('Here is a pass: {} ({}) mins left'.format(p['mac'], int((p['time'] - time.time()) / 60)))
+                print('Here is a pass: {} ({} mins remaining)'.format(p['mac'], int((p['time'] - time.time()) / 60)))
             elif key == 'c':
                 with mutex:
                     p = PASSES.pop()
                 text = pyqrcode.create(p['mac'])
-                print('Here is a pass: ({}) mins left'.format(int((p['time'] - time.time()) / 60)))
+                print('Here is a pass: ({} mins remaining)'.format(int((p['time'] - time.time()) / 60)))
                 print(text.terminal(quiet_zone=1))
             else:
                 print('Command not recognized: {}'.format(key))
